@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web Dễ Thương Có Lời Tỏ Tình</title>
+    <style>
+        /* --- 1. THIẾT LẬP CHUNG (Giữ nguyên) --- */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffc0cb 0%, #ffe4e1 100%);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9); /* Độ trong suốt ít hơn */
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.5);
+            z-index: 10;
+        }
+
+        /* --- 2. TRÁI TIM HỒNG NHẤP NHÁY (Giữ nguyên) --- */
+        .heart-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .heart {
+            position: relative;
+            width: 80px;
+            height: 72px;
+            background-color: #ff69b4;
+            transform: rotate(-45deg);
+            margin: 0 auto 30px;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+            animation: pulse 1.5s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: #ff69b4;
+            border-radius: 50%;
+        }
+
+        .heart::before { top: -40px; left: 0; }
+        .heart::after { top: 0; right: -40px; }
+
+        @keyframes pulse {
+            0% { transform: scale(1) rotate(-45deg); }
+            50% { transform: scale(1.15) rotate(-45deg); }
+            100% { transform: scale(1) rotate(-45deg); }
+        }
+
+        .name-display {
+            font-size: 28px;
+            color: #d81b60;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+            margin-top: 20px;
+        }
+
+        /* --- 3. NÚT BẤM DỄ THƯƠNG --- */
+        .cute-button {
+            padding: 12px 25px;
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #ff99cc;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 153, 204, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .cute-button:hover {
+            background-color: #ff69b4;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.7);
+        }
+
+        /* --- 4. KHUNG HIỂN THỊ THÔNG ĐIỆP --- */
+        #message-box {
+            margin-top: 30px;
+            padding: 15px 25px;
+            border: 3px dashed #ff69b4; /* Viền nét đứt hồng */
+            border-radius: 15px;
+            font-size: 22px;
+            color: #d81b60;
+            font-weight: 600;
+            display: none; /* Ban đầu ẩn */
+            background-color: #fff0f5; /* Nền trắng hồng nhạt */
+            animation: fadeIn 1s ease-out; /* Hiệu ứng hiện ra */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- 5. ICON BAY (Giữ nguyên) --- */
+        .icon {
+            position: absolute;
+            font-size: 24px;
+            color: #ff69b4;
+            pointer-events: none;
+            opacity: 0.8;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        .icon:nth-child(1) { top: 10%; left: 10%; animation: fly 15s -2s infinite; }
+        .icon:nth-child(2) { top: 30%; left: 80%; animation: fly 18s -5s infinite; }
+        .icon:nth-child(3) { top: 70%; left: 20%; animation: fly 13s -8s infinite; }
+        .icon:nth-child(4) { top: 50%; left: 5%; animation: fly 16s -1s infinite; }
+        .icon:nth-child(5) { top: 85%; left: 90%; animation: fly 20s -6s infinite; }
+        
+        @keyframes fly {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0.8; }
+            100% { transform: translate(400px, -800px) rotate(360deg); opacity: 0; }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div class="icon">✨</div>
+    <div class="icon">🌸</div>
+    <div class="icon">💖</div>
+    <div class="icon">🎀</div>
+    <div class="icon">🌟</div>
+
+    <div class="container">
+        
+        <div class="heart-wrapper">
+            <div class="heart"></div>
+        </div>
+
+        <div class="name-display">
+            Trang Web Dễ Thương Của **Phương Anh**!
+        </div>
+
+        <button class="cute-button" id="cuteButton">
+            Bấm Vào Đây Nhé
+        </button>
+        
+        <div id="message-box">
+            
+        </div>
+        
+    </div>
+
+    <script>
+        document.getElementById('cuteButton').addEventListener('click', showMessage);
+
+        function showMessage() {
+            const messageBox = document.getElementById('message-box');
+            
+            // Nội dung tán tỉnh kèm icon
+            const flirtMessage = "💌 Bạn có biết không? Kể từ khi gặp bạn, trái tim mình cứ 'pulse' như thế này đấy! Yêu bạn nhiều! 🥰";
+
+            // Chèn nội dung vào khung
+            messageBox.innerHTML = flirtMessage;
+            
+            // Hiển thị khung tin nhắn
+            messageBox.style.display = 'block';
+            
+            // Ẩn nút bấm sau khi đã hiển thị thông điệp (tùy chọn)
+            document.getElementById('cuteButton').style.display = 'none'; 
+        }
+    </script>
+
+</body>
+</html>
